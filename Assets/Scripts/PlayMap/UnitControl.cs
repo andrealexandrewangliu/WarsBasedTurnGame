@@ -29,11 +29,13 @@ public class UnitControl : MonoBehaviour {
 		GameObject playerFaction = Factions.transform.GetChild(faction).gameObject;
 		PlayerFaction playerFactionSpec = (PlayerFaction)playerFaction.GetComponent ("PlayerFaction");
 
-		var unit = (GameObject)Instantiate (prefab, new Vector3(x + 0.5f, 0.2f, y + 0.5f), Quaternion.identity);
+		//var unit = (GameObject)Instantiate (prefab, new Vector3(x + 0.5f, 0.2f, y + 0.5f), Quaternion.identity);
+		var unit = GameUnit.InstantiateUnit (prefab, playerFaction);
+		unit.transform.position = new Vector3 (x + 0.5f, 0, y + 0.5f);
 		unit.transform.parent = this.transform.FindChild("Units").transform;
 		playerFactionSpec.ActiveUnits.Add (unit);
 		UnitPlacement [x, y] = unit;
-		((UnitSpec)unit.GetComponent ("UnitSpec")).paintUnit(playerFactionSpec.FactionColor);
+		);
 	}
 
 	GameObject SelectUnitPrefab (int faction, int unitid){

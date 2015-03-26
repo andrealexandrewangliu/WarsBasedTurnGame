@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\Faction\BaseFaction.cs" />
+     <Compile Include="Assets\Scripts\Faction\GameUnit.cs" />
      <Compile Include="Assets\Scripts\Faction\PlayerFaction.cs" />
      <Compile Include="Assets\Scripts\PlayMap\CameraControl.cs" />
      <Compile Include="Assets\Scripts\PlayMap\GridControl.cs" />

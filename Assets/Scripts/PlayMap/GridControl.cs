@@ -6,16 +6,19 @@ public class GridControl : MonoBehaviour {
 	
 	private static GameObject[] TilesPrefab;
 	private static int[] TilesIndex;
-
+	
+	// Recommended max size = 64 * 64
+	// Stretched  max size = 128 * 128 NO GUARANTEES ABOVE THIS LIMIT!
 	public Vector2 MapSize;
 	private byte[,] MapTerrain;
-	LineRenderer lineRenderer;
+	private GameObject[,] MapTiles;
 
 	// Use this for initialization
 	void Start () {
 		int x = Mathf.RoundToInt (MapSize.x);
 		int y = Mathf.RoundToInt (MapSize.y);
 		MapTerrain = new byte[x,y];
+		MapTiles = new GameObject[x,y];
 		
 		
 		MapTerrain [0, 0] = MapTerrain [0, 1] = MapTerrain [0, 2] = 
@@ -31,14 +34,14 @@ public class GridControl : MonoBehaviour {
 		MapTerrain [0, 4] = 3;
 		MapTerrain [1, 0] = 5;
 		MapTerrain [1, 1] = 6;
-		MapTerrain [1, 2] = 7;
+		MapTerrain [1, 2] = 1;
 		MapTerrain [1, 3] = 9;
 		MapTerrain [1, 4] = 8;
 		MapTerrain [2, 0] = 8;
 		MapTerrain [2, 1] = 8;
 		MapTerrain [2, 2] = 8;
-		MapTerrain [2, 3] = 8;
-		MapTerrain [2, 4] = 8;
+		MapTerrain [2, 3] = 7;
+		MapTerrain [2, 4] = 7;
 
 		SetPrefabs ();
 		CreateGrid ();
@@ -77,10 +80,53 @@ public class GridControl : MonoBehaviour {
 	void CreateGrid(){
 		for (int x = 0; x < MapSize.x; x++) {
 			for (int y = 0; y < MapSize.y; y++) {
-				var tile = (GameObject)Instantiate (GetTile(MapTerrain[x,y]), new Vector3(x + 0.5f, 0.5f, y + 0.5f), Quaternion.identity);
+				var tile = (GameObject)Instantiate (GetTile(MapTerrain[x,y]), new Vector3((x + 0.5f), 0, (y + 0.5f)), Quaternion.identity);
 				tile.transform.parent = this.transform.FindChild("Tiles").transform;
 				((TileSelect)tile.GetComponent("TileSelect")).coordinate = new Vector2(x, y);
+				MapTiles[x,y] = tile;
+				if (x > 0){
+					hideBorderY(y, x, x - 1);
+				}
+				if (y > 0){
+					hideBorderX(y, y - 1, x);
+				}
 			}
+		}
+	}
+	
+	void hideBorderY(int y,int x1, int x2){
+		int xlow, xhigh;
+		if (x1 < x2) {
+			xlow = x2;
+			xhigh = x1;
+		}
+		else  {
+			xlow = x1;
+			xhigh = x2;
+		}
+		TileSelect east = (TileSelect) MapTiles[xlow,y].GetComponent("TileSelect");
+		TileSelect west = (TileSelect) MapTiles[xhigh,y].GetComponent("TileSelect");
+		if (east.borderOcclusion && west.borderOcclusion) {
+			east.HideWest();
+			west.HideEast();
+		}
+	}
+	
+	void hideBorderX(int y1,int y2, int x){
+		int ylow, yhigh;
+		if (y1 < y2) {
+			ylow = y1;
+			yhigh = y2;
+		}
+		else  {
+			ylow = y2;
+			yhigh = y1;
+		}
+		TileSelect north = (TileSelect) MapTiles[x,yhigh].GetComponent("TileSelect");
+		TileSelect south = (TileSelect) MapTiles[x,ylow].GetComponent("TileSelect");
+		if (north.borderOcclusion && south.borderOcclusion) {
+			north.HideSouth();
+			south.HideNorth();
 		}
 	}
 

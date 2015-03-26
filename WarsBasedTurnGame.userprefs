@@ -1,15 +1,18 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/PlayMap/UnitControl.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Faction/GameUnit.cs">
     <Files>
-      <File FileName="Assets/Scripts/Unit/UnitSpec.cs" Line="63" Column="4" />
-      <File FileName="Assets/Scripts/Unit/TurretSpec.cs" Line="47" Column="22" />
-      <File FileName="Assets/Scripts/Unit/GunSpec.cs" Line="29" Column="65" />
-      <File FileName="Assets/Scripts/PlayMap/TileSelect.cs" Line="19" Column="1" />
-      <File FileName="Assets/Scripts/Unit/ChassisSpec.cs" Line="74" Column="13" />
-      <File FileName="Assets/Scripts/Unit/UnitPainter.cs" Line="8" Column="29" />
-      <File FileName="Assets/Scripts/PlayMap/UnitControl.cs" Line="68" Column="21" />
-      <File FileName="Assets/Scripts/PlayMap/GridControl.cs" Line="35" Column="25" />
+      <File FileName="Assets/Scripts/Unit/UnitSpec.cs" Line="67" Column="51" />
+      <File FileName="Assets/Scripts/Unit/TurretSpec.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Unit/GunSpec.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/PlayMap/TileSelect.cs" Line="7" Column="29" />
+      <File FileName="Assets/Scripts/Unit/ChassisSpec.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Unit/UnitPainter.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/PlayMap/UnitControl.cs" Line="38" Column="3" />
+      <File FileName="Assets/Scripts/PlayMap/GridControl.cs" Line="53" Column="34" />
+      <File FileName="Assets/Scripts/Faction/GameUnit.cs" Line="23" Column="1" />
+      <File FileName="Assets/Scripts/Faction/BaseFaction.cs" Line="5" Column="49" />
+      <File FileName="Assets/Scripts/Faction/PlayerFaction.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
