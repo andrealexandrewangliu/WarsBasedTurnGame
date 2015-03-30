@@ -9,13 +9,44 @@ public class TileSelect : MonoBehaviour {
 	public GameObject[] SouthBorder;
 	public GameObject[] EastBorder;
 	public GameObject[] WestBorder;
-//	void Start(){
-//		showHighlight();
-//	}
+	public float FloorHeight = 0.2f;
+	public TileMovementType FloorType = TileMovementType.Normal;
+	private GameObject grid;
+	private GameObject Highlight;
+	private GameObject CursorHighlight;
+	public PathShow PathRenderer;
+
+	public enum TileMovementType{
+		Normal,
+		Concrete,
+		Sand,
+		Hill,
+		Mountain,
+		Obstructed,
+		ShallowWater,
+		DeepWater
+	}
+	
+//	public enum UnitMove{
+//		Walk,			//Drone, Walker
+//		Wheel,			//Wheeled
+//		Thread,			//Track
+//		Swim,			//Boat
+//		Dive,			//Sub
+//		Float,			//Hover, HoverDrone
+//		Balloon,		//Heli
+//		Fly				//Jet
+//	};
+
+	void Start(){
+		PathRenderer = (PathShow) transform.FindChild ("PathIcon").gameObject.GetComponent ("PathShow");
+		grid = GameObject.Find("Grid");
+		Highlight = this.transform.FindChild ("Highlight").gameObject;
+		CursorHighlight = this.transform.FindChild ("TileCursorHighlight").gameObject;
+	}
 
 	void OnMouseDown(){
 		if (active) {
-			GameObject grid = GameObject.Find("Grid");
 			if (grid != null){
 				((UnitControl)grid.GetComponent("UnitControl")).
 					clickCoordinate((int)coordinate.x, (int)coordinate.y);
@@ -23,12 +54,20 @@ public class TileSelect : MonoBehaviour {
 		}
 	}
 	
+	public void OnMouseEnter(){
+		CursorHighlight.SetActive(true);
+	}
+	
+	public void OnMouseExit(){
+		CursorHighlight.SetActive(false);
+	}
+	
 	public void showHighlight(){
-		this.transform.FindChild ("Highlight").gameObject.SetActive(true);
+		Highlight.SetActive(true);
 	}
 	
 	public void hideHighlight(){
-		this.transform.FindChild ("Highlight").gameObject.SetActive(false);
+		Highlight.SetActive(false);
 	}
 	
 	public void HideNorth(){

@@ -17,8 +17,8 @@ public class CameraControl : MonoBehaviour {
 		CameraCoordinates = new Vector3 (GridSize.x / 2, transform.position.y, (GridSize.y / 2));
 		transform.position = new Vector3 (CameraCoordinates.x, CameraCoordinates.y, CameraCoordinates.z-(0.75f*CameraCoordinates.y));
 
-		if (camera.orthographic){
-			camera.orthographicSize = transform.position.y/3;
+		if (GetComponent<Camera>().orthographic){
+			GetComponent<Camera>().orthographicSize = transform.position.y/3;
 		}
 	}
 	
@@ -40,8 +40,8 @@ public class CameraControl : MonoBehaviour {
 		CameraCoordinates += movement;
 		//Time.deltaTime is to make the game consistent with framerate
 
-		if (camera.orthographic){
-			camera.orthographicSize = transform.position.y/3;
+		if (GetComponent<Camera>().orthographic){
+			GetComponent<Camera>().orthographicSize = transform.position.y/3;
 		}
 		transform.position = new Vector3 (CameraCoordinates.x, CameraCoordinates.y, CameraCoordinates.z-(0.75f*CameraCoordinates.y));
 	}

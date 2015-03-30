@@ -11,15 +11,7 @@ public class GunSpec : MonoBehaviour {
 	public int maxrange = 0;
 	public float weigth = 0;
 
-	public UnitSize turretSize;
-	
-	public enum UnitSize{
-		T,			//Tiny Turrets
-		S,			//Small Turrets
-		M,			//Medium Turrets
-		L,			//Large Turrets
-		H,			//Huge Turrets
-	};
+	public UnitSpec.UnitSize turretSize;
 
 	public float getWeight(){
 		return weigth;

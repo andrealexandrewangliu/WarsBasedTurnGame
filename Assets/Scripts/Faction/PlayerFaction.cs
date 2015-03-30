@@ -8,6 +8,7 @@ public class PlayerFaction : MonoBehaviour {
 	public string Name;
 	public ArrayList ActiveUnits = new ArrayList();
 	public GameObject[] Units = new GameObject[5];
+	public int ID = 0;
 
 	// Use this for initialization
 	void Start () {

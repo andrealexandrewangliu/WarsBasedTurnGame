@@ -1,18 +1,22 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Faction/GameUnit.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/PlayMap/UnitControl.cs">
     <Files>
-      <File FileName="Assets/Scripts/Unit/UnitSpec.cs" Line="67" Column="51" />
-      <File FileName="Assets/Scripts/Unit/TurretSpec.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/PlayMap/UnitControl.cs" Line="149" Column="21" />
+      <File FileName="Assets/Scripts/PlayMap/TileSelect.cs" Line="28" Column="3" />
+      <File FileName="Assets/Scripts/PlayMap/GridControl.cs" Line="1" Column="1" />
+      <File FileName="../Tutorial1/Assets/scripts/Tile.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/PlayMap/UnitControlMovement.cs" Line="165" Column="14" />
+      <File FileName="Assets/Scripts/Faction/GameUnit.cs" Line="138" Column="28" />
+      <File FileName="Assets/Scripts/PlayMap/CameraControl.cs" Line="1" Column="1" />
       <File FileName="Assets/Scripts/Unit/GunSpec.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/PlayMap/TileSelect.cs" Line="7" Column="29" />
+      <File FileName="Assets/Scripts/Unit/UnitSpec.cs" Line="137" Column="3" />
       <File FileName="Assets/Scripts/Unit/ChassisSpec.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Unit/UnitPainter.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/PlayMap/UnitControl.cs" Line="38" Column="3" />
-      <File FileName="Assets/Scripts/PlayMap/GridControl.cs" Line="53" Column="34" />
-      <File FileName="Assets/Scripts/Faction/GameUnit.cs" Line="23" Column="1" />
-      <File FileName="Assets/Scripts/Faction/BaseFaction.cs" Line="5" Column="49" />
+      <File FileName="../Tutorial1/Assets/scripts/Player.cs" Line="1" Column="1" />
+      <File FileName="../Tutorial1/Assets/scripts/GameManager.cs" Line="1" Column="1" />
+      <File FileName="../Tutorial1/Assets/scripts/UserPlayer.cs" Line="1" Column="1" />
       <File FileName="Assets/Scripts/Faction/PlayerFaction.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/PlayMap/PathShow.cs" Line="18" Column="2" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

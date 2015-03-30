@@ -10,39 +10,9 @@ public class ChassisSpec : MonoBehaviour {
 	public float horsepower = 0;
 	public GameObject turret;
 	private TurretSpec turretStat;
-	public UnitType type = UnitType.Drone;
-	public UnitSize size;
-	public UnitSize turretSize;
-
-	public enum UnitType{
-		Drone,			//Basic Infantry
-		HoverDrone,		//Hover Infantry
-		Walker,			//Robots
-		Wheeled,		//Wheeled Vehicles
-		Track,			//Tanks
-		Hover,			//Hover Tanks
-		Boat,			//Cruisers, landers and battleships
-		Sub,			//Submarines
-		Heli,			//Helicopters and slow stationary flyers
-		Jet				//Fighters and Bombers
-	};
-	private enum UnitMove{
-		Walk,			//Drone, Walker
-		Wheel,			//Wheeled
-		Thread,			//Track
-		Swim,			//Boat
-		Dive,			//Sub
-		Float,			//Hover, HoverDrone
-		Balloon,		//Heli
-		Fly				//Jet
-	};
-	public enum UnitSize{
-		T,          //This size is only for weapons
-		S,			//12 small units
-		M,			//6 medium units
-		L,			//3 large units
-		H,			//1 dreadnaught sized unit
-	};
+	public UnitSpec.UnitType type = UnitSpec.UnitType.Drone;
+	public UnitSpec.UnitSize size;
+	public UnitSpec.UnitSize turretSize;
 
 	// Use this for initialization
 	void Start () {
@@ -81,5 +51,10 @@ public class ChassisSpec : MonoBehaviour {
 		turretStat = (TurretSpec) turret.GetComponent ("TurretSpec");
 		turretStat.GenerateBody (mainPrefab, subPrefab);
 	}
-
+	
+	public bool RotateTurret(float angle){
+		if (turretStat.turnable) 
+			transform.FindChild ("TurretHardpoint").transform.localEulerAngles = new Vector3 (0, angle, 0);
+		return turretStat.turnable;
+	}
 }

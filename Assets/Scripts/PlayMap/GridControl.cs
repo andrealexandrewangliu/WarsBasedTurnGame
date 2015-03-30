@@ -13,6 +13,11 @@ public class GridControl : MonoBehaviour {
 	private byte[,] MapTerrain;
 	private GameObject[,] MapTiles;
 
+	public float getFloorHeight(int x, int y){
+		TileSelect tile = (TileSelect)MapTiles [x, y].GetComponent ("TileSelect");
+		return tile.FloorHeight;
+	}
+
 	// Use this for initialization
 	void Start () {
 		int x = Mathf.RoundToInt (MapSize.x);
@@ -42,6 +47,7 @@ public class GridControl : MonoBehaviour {
 		MapTerrain [2, 2] = 8;
 		MapTerrain [2, 3] = 7;
 		MapTerrain [2, 4] = 7;
+		MapTerrain [5, 5] = 7;
 
 		SetPrefabs ();
 		CreateGrid ();
@@ -137,6 +143,10 @@ public class GridControl : MonoBehaviour {
 		for (int y = 0; y <= MapSize.y; y++) {
 			Gizmos.DrawLine(new Vector3(y, 0.21f, 0), new Vector3(y, 0.21f, MapSize.x));
 		}
+	}
+
+	public TileSelect getTileSpec(int x, int y){
+		return (TileSelect) MapTiles[x,y].GetComponent("TileSelect");
 	}
 
 }

@@ -6,7 +6,7 @@ public class UnitPainter : MonoBehaviour {
 
 	public void paint(Color color){
 		foreach(GameObject part in parts){
-			part.renderer.material.color = part.renderer.material.color * color;
+			part.GetComponent<Renderer>().material.color = part.GetComponent<Renderer>().material.color * color;
 		}
 	}
 }

@@ -14,16 +14,8 @@ public class TurretSpec : MonoBehaviour {
 	public GameObject gun;
 	private GunSpec gunStat;
 	private TurretSpec subStat;
-	public UnitSize turretSize;
-	public UnitSize gunSize;
-
-	public enum UnitSize{
-		T,			//Tiny weapons
-		S,			//Small weapons
-		M,			//Medium weapons
-		L,			//Large weapons
-		H,			//Huge weapons
-	};
+	public UnitSpec.UnitSize turretSize;
+	public UnitSpec.UnitSize gunSize;
 
 	// Use this for initialization
 	void Start () {
