@@ -6,16 +6,72 @@ public class GridControl : MonoBehaviour {
 	
 	private static GameObject[] TilesPrefab;
 	private static int[] TilesIndex;
+	private static bool PrefabsLoaded = false;
+	private byte[,] MapTerrain;
+	private GameObject[,] MapTiles;
 	
 	// Recommended max size = 64 * 64
 	// Stretched  max size = 128 * 128 NO GUARANTEES ABOVE THIS LIMIT!
 	public Vector2 MapSize;
-	private byte[,] MapTerrain;
-	private GameObject[,] MapTiles;
 
 	public float getFloorHeight(int x, int y){
-		TileSelect tile = (TileSelect)MapTiles [x, y].GetComponent ("TileSelect");
+		TileSelect tile = (TileSelect)MapTiles [x, y].GetComponent<TileSelect> ();
 		return tile.FloorHeight;
+	}
+
+	public void ChangeTile(int x, int y, byte id){
+		if (x >= 0 && x < (int)MapSize.x && 
+			y >= 0 && y < (int)MapSize.y) {
+			Destroy (MapTiles [x, y]);
+			MapTerrain[x,y] = id;
+
+			var tile = (GameObject)Instantiate (GetTile(MapTerrain[x,y]), new Vector3((x + 0.5f), 0, (y + 0.5f)), Quaternion.identity);
+			tile.transform.parent = this.transform.FindChild("Tiles").transform;
+			TileSelect tileSpec = (tile.GetComponent<TileSelect>());
+			RoadDraw thisroadDrawer = (tile.GetComponent<RoadDraw>());
+			tileSpec.coordinate = new Vector2(x, y);
+			MapTiles[x,y] = tile;
+			if (x > 0){
+				hideBorderY(y, x, x - 1);
+				RoadDraw neighborsroadDrawer = (MapTiles[x - 1, y].GetComponent<RoadDraw>());
+				if (thisroadDrawer != null)
+					thisroadDrawer.UpdateConnect (MapTiles[x - 1, y].GetComponent<TileSelect>());
+				if (neighborsroadDrawer != null){
+					neighborsroadDrawer.UpdateConnect (tileSpec);
+					neighborsroadDrawer.DrawConnections();
+				}
+			}
+			if (y > 0){
+				hideBorderX(y, y - 1, x);
+				RoadDraw neighborsroadDrawer = (MapTiles[x, y - 1].GetComponent<RoadDraw>());
+				if (thisroadDrawer != null)
+					thisroadDrawer.UpdateConnect (MapTiles[x, y - 1].GetComponent<TileSelect>());
+				if (neighborsroadDrawer != null){
+					neighborsroadDrawer.UpdateConnect (tileSpec);
+					neighborsroadDrawer.DrawConnections();
+				}
+			}
+			if (x + 1 < (int)MapSize.x){
+				hideBorderY(y, x, x + 1);
+				RoadDraw neighborsroadDrawer = (MapTiles[x + 1, y].GetComponent<RoadDraw>());
+				if (thisroadDrawer != null)
+					thisroadDrawer.UpdateConnect (MapTiles[x + 1, y].GetComponent<TileSelect>());
+				if (neighborsroadDrawer != null){
+					neighborsroadDrawer.UpdateConnect (tileSpec);
+					neighborsroadDrawer.DrawConnections();
+				}
+			}
+			if (y + 1 < (int)MapSize.y){
+				hideBorderX(y, y + 1, x);
+				RoadDraw neighborsroadDrawer = (MapTiles[x, y + 1].GetComponent<RoadDraw>());
+				if (thisroadDrawer != null)
+					thisroadDrawer.UpdateConnect (MapTiles[x, y + 1].GetComponent<TileSelect>());
+				if (neighborsroadDrawer != null){
+					neighborsroadDrawer.UpdateConnect (tileSpec);
+					neighborsroadDrawer.DrawConnections();
+				}
+			}
+		}
 	}
 
 	// Use this for initialization
@@ -24,42 +80,25 @@ public class GridControl : MonoBehaviour {
 		int y = Mathf.RoundToInt (MapSize.y);
 		MapTerrain = new byte[x,y];
 		MapTiles = new GameObject[x,y];
-		
-		
-		MapTerrain [0, 0] = MapTerrain [0, 1] = MapTerrain [0, 2] = 
-			MapTerrain [1, 0] = MapTerrain [1, 1] = MapTerrain [1, 2] = 
-				MapTerrain [2, 0] = MapTerrain [2, 1] = MapTerrain [2, 2] = MapTerrain [2, 3] = MapTerrain [2, 4] = 
-				MapTerrain [3, 2] = MapTerrain [3, 3] = MapTerrain [3, 4] = 
-				MapTerrain [4, 2] = MapTerrain [4, 3] = MapTerrain [4, 4] = 1;
-		
-		MapTerrain [0, 0] = 4;
-		MapTerrain [0, 1] = 0;
-		MapTerrain [0, 2] = 1;
-		MapTerrain [0, 3] = 2;
-		MapTerrain [0, 4] = 3;
-		MapTerrain [1, 0] = 5;
-		MapTerrain [1, 1] = 6;
-		MapTerrain [1, 2] = 1;
-		MapTerrain [1, 3] = 9;
-		MapTerrain [1, 4] = 8;
-		MapTerrain [2, 0] = 8;
-		MapTerrain [2, 1] = 8;
-		MapTerrain [2, 2] = 8;
-		MapTerrain [2, 3] = 7;
-		MapTerrain [2, 4] = 7;
-		MapTerrain [5, 5] = 7;
+
 
 		SetPrefabs ();
 		CreateGrid ();
-
+		
+		PlayMap.Grid = this;
+		PlayMap.MapTerrain = MapTerrain;
+		PlayMap.MapTiles = MapTiles;
 	}
 
 	void SetPrefabs(){
-		SortedDictionary<string, int> dictionary = TileDictionary();
-		TilesPrefab = Resources.LoadAll<GameObject>("Prefabs/Tiles");
+		if (!PrefabsLoaded) {
+			SortedDictionary<string, int> dictionary = TileDictionary ();
+			TilesPrefab = Resources.LoadAll<GameObject> ("Prefabs/Tiles");
 
-		for (int index = 0; index < TilesPrefab.Length; index++) {
-			TilesIndex[dictionary[TilesPrefab[index].name]] = index;
+			for (int index = 0; index < TilesPrefab.Length; index++) {
+				TilesIndex [dictionary [TilesPrefab [index].name]] = index;
+			}
+			PrefabsLoaded = true;
 		}
 	}
 
@@ -75,6 +114,13 @@ public class GridControl : MonoBehaviour {
 		dictionary.Add ("Hill", 7);
 		dictionary.Add ("Mountain", 8);
 		dictionary.Add ("SunkenConcrete", 9);
+		dictionary.Add ("City", 10);
+		dictionary.Add ("ConcreteRoad", 11);
+		dictionary.Add ("GrassRoad", 12);
+		dictionary.Add ("PlainsRoad", 13);
+		dictionary.Add ("ShallowBridge", 14);
+		dictionary.Add ("UrbanBridge", 15);
+		dictionary.Add ("DeepBridge", 16);
 		TilesIndex = new int[dictionary.Count];
 		return dictionary;
 	}
@@ -88,13 +134,25 @@ public class GridControl : MonoBehaviour {
 			for (int y = 0; y < MapSize.y; y++) {
 				var tile = (GameObject)Instantiate (GetTile(MapTerrain[x,y]), new Vector3((x + 0.5f), 0, (y + 0.5f)), Quaternion.identity);
 				tile.transform.parent = this.transform.FindChild("Tiles").transform;
-				((TileSelect)tile.GetComponent("TileSelect")).coordinate = new Vector2(x, y);
+				TileSelect tileSpec = (tile.GetComponent<TileSelect>());
+				RoadDraw thisroadDrawer = (tile.GetComponent<RoadDraw>());
+				tileSpec.coordinate = new Vector2(x, y);
 				MapTiles[x,y] = tile;
 				if (x > 0){
 					hideBorderY(y, x, x - 1);
+					RoadDraw neighborsroadDrawer = (MapTiles[x - 1, y].GetComponent<RoadDraw>());
+					if (thisroadDrawer != null)
+						thisroadDrawer.UpdateConnect (MapTiles[x - 1, y].GetComponent<TileSelect>());
+					if (neighborsroadDrawer != null)
+						neighborsroadDrawer.UpdateConnect (tileSpec);
 				}
 				if (y > 0){
 					hideBorderX(y, y - 1, x);
+					RoadDraw neighborsroadDrawer = (MapTiles[x, y - 1].GetComponent<RoadDraw>());
+					if (thisroadDrawer != null)
+						thisroadDrawer.UpdateConnect (MapTiles[x, y - 1].GetComponent<TileSelect>());
+					if (neighborsroadDrawer != null)
+						neighborsroadDrawer.UpdateConnect (tileSpec);
 				}
 			}
 		}
@@ -110,8 +168,8 @@ public class GridControl : MonoBehaviour {
 			xlow = x1;
 			xhigh = x2;
 		}
-		TileSelect east = (TileSelect) MapTiles[xlow,y].GetComponent("TileSelect");
-		TileSelect west = (TileSelect) MapTiles[xhigh,y].GetComponent("TileSelect");
+		TileSelect east = (TileSelect) MapTiles[xlow,y].GetComponent<TileSelect>();
+		TileSelect west = (TileSelect) MapTiles[xhigh,y].GetComponent<TileSelect>();
 		if (east.borderOcclusion && west.borderOcclusion) {
 			east.HideWest();
 			west.HideEast();
@@ -128,8 +186,8 @@ public class GridControl : MonoBehaviour {
 			ylow = y2;
 			yhigh = y1;
 		}
-		TileSelect north = (TileSelect) MapTiles[x,yhigh].GetComponent("TileSelect");
-		TileSelect south = (TileSelect) MapTiles[x,ylow].GetComponent("TileSelect");
+		TileSelect north = (TileSelect) MapTiles[x,yhigh].GetComponent<TileSelect>();
+		TileSelect south = (TileSelect) MapTiles[x,ylow].GetComponent<TileSelect>();
 		if (north.borderOcclusion && south.borderOcclusion) {
 			north.HideSouth();
 			south.HideNorth();
@@ -146,7 +204,7 @@ public class GridControl : MonoBehaviour {
 	}
 
 	public TileSelect getTileSpec(int x, int y){
-		return (TileSelect) MapTiles[x,y].GetComponent("TileSelect");
+		return (TileSelect) MapTiles[x,y].GetComponent<TileSelect>();
 	}
 
 }

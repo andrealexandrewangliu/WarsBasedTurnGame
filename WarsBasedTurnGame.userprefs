@@ -1,22 +1,14 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/PlayMap/UnitControl.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/PlayMap/Tile/TileSelect.cs">
     <Files>
-      <File FileName="Assets/Scripts/PlayMap/UnitControl.cs" Line="149" Column="21" />
-      <File FileName="Assets/Scripts/PlayMap/TileSelect.cs" Line="28" Column="3" />
-      <File FileName="Assets/Scripts/PlayMap/GridControl.cs" Line="1" Column="1" />
-      <File FileName="../Tutorial1/Assets/scripts/Tile.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/PlayMap/UnitControlMovement.cs" Line="165" Column="14" />
-      <File FileName="Assets/Scripts/Faction/GameUnit.cs" Line="138" Column="28" />
-      <File FileName="Assets/Scripts/PlayMap/CameraControl.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Unit/GunSpec.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Unit/UnitSpec.cs" Line="137" Column="3" />
-      <File FileName="Assets/Scripts/Unit/ChassisSpec.cs" Line="1" Column="1" />
-      <File FileName="../Tutorial1/Assets/scripts/Player.cs" Line="1" Column="1" />
-      <File FileName="../Tutorial1/Assets/scripts/GameManager.cs" Line="1" Column="1" />
-      <File FileName="../Tutorial1/Assets/scripts/UserPlayer.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Faction/PlayerFaction.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/PlayMap/PathShow.cs" Line="18" Column="2" />
+      <File FileName="Assets/Scripts/MapEditor/LoadTilesPalette.cs" Line="44" Column="6" />
+      <File FileName="Assets/Scripts/PlayMap/GridControl.cs" Line="176" Column="4" />
+      <File FileName="Assets/Scripts/PlayMap/PlayMap.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/MapEditor/MapEditor.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/PlayMap/Tile/RoadDraw.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/MapEditor/PaletteButtonData.cs" Line="5" Column="27" />
+      <File FileName="Assets/Scripts/PlayMap/Tile/TileSelect.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

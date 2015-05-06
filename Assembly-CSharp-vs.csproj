@@ -49,22 +49,41 @@
      <Compile Include="Assets\Scripts\Faction\BaseFaction.cs" />
      <Compile Include="Assets\Scripts\Faction\GameUnit.cs" />
      <Compile Include="Assets\Scripts\Faction\PlayerFaction.cs" />
+     <Compile Include="Assets\Scripts\Global\GridInteractionController.cs" />
+     <Compile Include="Assets\Scripts\MapEditor\LoadTilesPalette.cs" />
+     <Compile Include="Assets\Scripts\MapEditor\MapEditor.cs" />
+     <Compile Include="Assets\Scripts\MapEditor\PaletteButtonData.cs" />
      <Compile Include="Assets\Scripts\PlayMap\CameraControl.cs" />
+     <Compile Include="Assets\Scripts\PlayMap\CameraFacingBillboard.cs" />
+     <Compile Include="Assets\Scripts\PlayMap\GUI\AttackInfo.cs" />
+     <Compile Include="Assets\Scripts\PlayMap\GUI\RenderTextureImage.cs" />
      <Compile Include="Assets\Scripts\PlayMap\GridControl.cs" />
      <Compile Include="Assets\Scripts\PlayMap\PathShow.cs" />
-     <Compile Include="Assets\Scripts\PlayMap\TileSelect.cs" />
+     <Compile Include="Assets\Scripts\PlayMap\PlayMap.cs" />
+     <Compile Include="Assets\Scripts\PlayMap\SubScripts\Menus.cs" />
+     <Compile Include="Assets\Scripts\PlayMap\SubScripts\UnitControlBattle.cs" />
+     <Compile Include="Assets\Scripts\PlayMap\SubScripts\UnitControlMovement.cs" />
+     <Compile Include="Assets\Scripts\PlayMap\SubScripts\UnitControlTurn.cs" />
+     <Compile Include="Assets\Scripts\PlayMap\Tile\RoadDraw.cs" />
+     <Compile Include="Assets\Scripts\PlayMap\Tile\TileCapturable.cs" />
+     <Compile Include="Assets\Scripts\PlayMap\Tile\TileSelect.cs" />
      <Compile Include="Assets\Scripts\PlayMap\UnitControl.cs" />
-     <Compile Include="Assets\Scripts\PlayMap\UnitControlMovement.cs" />
      <Compile Include="Assets\Scripts\Unit\ChassisSpec.cs" />
      <Compile Include="Assets\Scripts\Unit\GunSpec.cs" />
      <Compile Include="Assets\Scripts\Unit\TurretSpec.cs" />
+     <Compile Include="Assets\Scripts\Unit\TurretableSpec.cs" />
      <Compile Include="Assets\Scripts\Unit\UnitPainter.cs" />
      <Compile Include="Assets\Scripts\Unit\UnitSpec.cs" />
      <Compile Include="Assets\Scripts\Workshop\WorkshopPrefabs.cs" />
      <None Include="Assets\Shaders\OutlineDiffuse.shader" />
+     <None Include="Assets\Plugins\Pixelplacement\iTween\ReadMe!\ReadMe!.txt" />
  <Reference Include="UnityEngine.UI">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="Assembly-CSharp-firstpass-vs.csproj">
+      <Project>{94BBA1E4-9A4A-4004-97F7-FE930AFFBC49}</Project>      <Name>Assembly-CSharp-firstpass-vs</Name>    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

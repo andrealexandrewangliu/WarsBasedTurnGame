@@ -2,23 +2,25 @@
 using System.Collections;
 
 public class UnitSpec : MonoBehaviour {
+	public string name;
 	public GameObject chassisPrefab;	// ChassisWeapon prefab
-	public GameObject turretPrefab;		// TurretWeapon prefab
-	public GameObject mainPrefab;		// MainWeapon prefab	
-	public GameObject subPrefab; 		// SubWeapon prefab
-	private GameObject chassis;	// ChassisWeapon prefab
-	private GameObject turret;		// TurretWeapon prefab
-	private GameObject main;		// MainWeapon prefab	
-	private GameObject sub; 		// SubWeapon prefab
-	private ChassisSpec chassisStat; 		// SubWeapon prefab
+	public GameObject[] turretsPrefab;		// TurretWeapon prefab
+	public GameObject[] gunsPrefab; 		// SubWeapon prefab
+	private GameObject chassis;	        // Chassis Instance
+	private ChassisSpec chassisStat; 	// Chassis Spec Instance
+	public TurretSpec[] turrets; 		// All Main turret Specs
 	private Color UnitColor;
 	private bool isInit = false;
 
-	
-	
+	public int getNumbers(){
+		return chassisStat.getNumbers ();
+	}
+
+	public bool isAmphibious(){
+		return chassisStat.amphibious;
+	}
+
 	public enum UnitType{
-		Drone,			//Basic Infantry
-		HoverDrone,		//Hover Infantry
 		Walker,			//Robots
 		Wheeled,		//Wheeled Vehicles
 		Track,			//Tanks
@@ -31,6 +33,7 @@ public class UnitSpec : MonoBehaviour {
 	public enum UnitMove{
 		Walk,			//Drone, Walker
 		Wheel,			//Wheeled
+		HalfTrack,		//Wheeled and Tracked
 		Thread,			//Track
 		Sail,			//Boat
 		Dive,			//Sub
@@ -45,7 +48,18 @@ public class UnitSpec : MonoBehaviour {
 		L,			//3 large units
 		H,			//1 dreadnaught sized unit
 	};
+	
+	public float[] getArmor(){
+		return chassisStat.getOverallArmor ();
+	}
 
+	public float getMaxHealth(){
+		return chassisStat.getMaxHealth ();
+	}
+	
+	public int getMaxSupply(){
+		return chassisStat.getMaxSupply ();
+	}
 
 	public UnitSize getUnitClassSize(){
 		return chassisStat.size;
@@ -74,6 +88,16 @@ public class UnitSpec : MonoBehaviour {
 		return mp;
 	}
 
+	public int getMaxRange(){
+		int max = 0;
+		foreach (TurretSpec turret in turrets) {
+			GunSpec weapon = turret.gunStat;
+			if (weapon.maxrange > 0)
+				max = Mathf.Max(max, weapon.maxrange);
+		}
+		return max;
+	}
+
 	// Use this for initialization
 	void Start () {
 		GenerateBody ();
@@ -98,8 +122,9 @@ public class UnitSpec : MonoBehaviour {
 			chassis.transform.parent = this.transform;
 			chassis.transform.position = chassis.transform.parent.transform.position;
 			chassisStat = (ChassisSpec)chassis.GetComponent ("ChassisSpec");
-			chassisStat.GenerateBody (turretPrefab, mainPrefab, subPrefab);
+			chassisStat.GenerateBody (turretsPrefab, gunsPrefab);
 			chassisStat.paint (UnitColor);
+			turrets = chassisStat.getTurretsGameObjects();
 			isInit = true;
 		}
 	}
@@ -114,12 +139,10 @@ public class UnitSpec : MonoBehaviour {
 		case UnitType.Boat:
 			return UnitMove.Sail;
 		case UnitType.Walker:
-		case UnitType.Drone:
 			return UnitMove.Walk;
 		case UnitType.Heli:
 			return UnitMove.Heli;
 		case UnitType.Hover:
-		case UnitType.HoverDrone:
 			return UnitMove.Float;
 		case UnitType.Jet:
 			return UnitMove.Fly;
